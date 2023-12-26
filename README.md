@@ -20,14 +20,21 @@ https://github.com/microsoft/vcpkg/archive/refs/heads/master.zip
 
 第一步：下载并编译图像库，步骤如下：
 vcpkg install tiff --triplet=x64-windows
+
 vcpkg install libpng --triplet=x64-windows
+
 vcpkg install giflib --triplet=x64-windows
+
 vcpkg install ijg-libjpeg --triplet=x64-windows  不成功，大概是要使用libjpeg-turbo
+
 vcpkg install libwebp --triplet=x64-windows
 
 vcpkg install tiff --triplet=x86-windows
+
 vcpkg install libpng --triplet=x86-windows
+
 vcpkg install giflib --triplet=x86-windows
+
 vcpkg install libwebp --triplet=x86-windows
 
 github连不上会报错，提示gz文件下载地址和要生成的文件名，用镜像站（例如 hub.njuu.cf）下载gz文件，然后改名为要生成的文件名，放到vcpkg目录的downloads里面，重新运行vcpkg install 即可。
