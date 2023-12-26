@@ -3,10 +3,13 @@ Leptonica 1.84.0 在Windwos 10下编译说明：
 编译需要CMaker、SW、VS2022。在编译之前，我们还要使用vcpkg生成依赖的若干图像库。
 
 cmake-3.27.7-windows-x86_64.msi 下载链接：
+
 https://github.com/Kitware/CMake/releases/download/v3.27.7/cmake-3.27.7-windows-x86_64.msi
 
 sw-master-windows-client.zip 下载链接：
+
 https://github.com/SoftwareNetwork/binaries
+
 下载到一个固定目录（这个目录以后不要删除，否则需要重新配置sw），右键以管理员打开cmd，进入这个目录，执行sw setup，看运气等着sw提示下载结束（国内网络不一定能下载，多试几十次，或者用梯子）。
 
 vcpkg.exe 下载链接：
@@ -19,6 +22,7 @@ https://github.com/microsoft/vcpkg/archive/refs/heads/master.zip
 编译需要的工具下载安装完毕，下面开始干活。
 
 第一步：下载并编译图像库，步骤如下：
+
 vcpkg install tiff --triplet=x64-windows
 
 vcpkg install libpng --triplet=x64-windows
