@@ -48,30 +48,39 @@ vcpkg会自动编译debug和release
 
 也可以直接用
 vcpkg install leptonica --triplet=x64-windows-static    ----------  生成 leptonica.dll 静态库（包括8个依赖），这个最省心
-依赖gif.dll，jpeg62.dll，openjp2.dll，libpng16.dll，zlib1.dll，tiff.dll，libwebp.dll，libwebpmux.dll
+
+生成的依赖库包括 gif.dll，jpeg62.dll，openjp2.dll，libpng16.dll，zlib1.dll，tiff.dll，libwebp.dll，libwebpmux.dll
+
 问题是我不知道怎么把图像库静态链接到leptonica.dll里面，谁要是知道记着发一个issus告诉我。
 
 第二步，使用CMake编译
-在leptonica-master目录中创建build目录。启动CMaker，设置source和build目录。点一次Configure，耐心等着sw下载完毕（会提示一大堆sw下载信息，等好久。然后是一堆Performing  check，继续等。
-（如果上面这步报错，删除build目录中的全部文件，然后重试。）
+在leptonica-master目录中创建build目录。启动CMaker，设置source和build目录。点一次Configure，耐心等着sw下载完毕（会提示一大堆sw下载信息，等好久。然后是一堆Performing  check，继续等。（如果这步报错，删除build目录中的全部文件，然后重试。）
+
 再点一次Configure，然后点一次Generating，这会生成sln，给vs2022编译用。
 
 新建libs\leptonica-master\src\webp，下载libwebp源代码（https://github.com/webmproject/libwebp），拷贝libwebp\src\webp目录里面的.h头文件，到上面的目录，1.83.x的leptonica编译需要它们（1.84.0好像不需要了）。
+
 然后使用vs2022在leptonica-master\build目录中打开leptonica.sln，可以直接编译成功，生成的是lib文件。
 
 第三步，配置VS2022，生成Dll
 CMake生成的leptonica.sln（默认是Release x64）只能编译静态库lib。按照下面的步骤配置VS2022：
+
 打开leptonica项目的属性，做如下配置：
+
 1、配置属性--常规--输出目录改为 $(SolutionDir)$(Configuration)\$(Platform)\
+
    配置属性--常规目标文件扩展名，改为.dll
 
 2、链接器--常规--附加库目录，输入 $(SolutionDir)libs\$(Platform)
 
 3、在项目工程目录\build中创建libs目录，在libs目录中，再创建x64和Win32（x86）两个目录，分别放入vcpkg生成的x64和x86静态库文件（共10个）：
+
 gif.lib;jpeg.lib;openjp2.lib;libpng16.lib;zlib.lib;tiff.lib;libwebp.lib;libwebpmux.lib;libsharpyuv.lib;lzma.lib;
+
 还有一个turbojpeg.lib，目前不需要它。
 
 4、链接器--输入--附加依赖项，添加十个链接库:
+
 gif.lib;jpeg.lib;openjp2.lib;libpng16.lib;zlib.lib;tiff.lib;libwebp.lib;libwebpmux.lib;libsharpyuv.lib;lzma.lib;
 
 5、链接器--输入--忽略特定默认库，添加libcmt.lib（Release） 或 libcmtd.lib（Debug）。否则编译会报错：LNK4098	默认库“LIBCMT”与其他库的使用冲突；请使用 /NODEFAULTLIB:library	
@@ -82,7 +91,9 @@ gif.lib;jpeg.lib;openjp2.lib;libpng16.lib;zlib.lib;tiff.lib;libwebp.lib;libwebpm
 7、在项目的配置管理器中增加x86或Win32配置，注意要勾选leptonica项目。注意：libs的对应目录也应该是x86或Win32。
 
 编译结果：
+
 以Release x64编译，在bulid\src\release\x64中生成leptonica-1.84.0.dll
+
 以Release Win32编译，在bulid\src\release\Win32中生成leptonica-1.84.0.dll
 
 Charltsing, 2023.12.26 测试通过。
