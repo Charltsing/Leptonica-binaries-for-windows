@@ -6,8 +6,8 @@ cmake-3.27.7-windows-x86_64.msi 下载链接：
 https://github.com/Kitware/CMake/releases/download/v3.27.7/cmake-3.27.7-windows-x86_64.msi
 
 sw-master-windows-client.zip 下载链接：
-https://github.com/SoftwareNetwork/binaries，或者https://software-network.org/client/sw-master-windows-client.zip
-下载到一个固定目录，管理员执行sw setup，看运气等着sw提示下载结束（国内网络不一定能下载，多试几十次，或者用梯子）。
+https://github.com/SoftwareNetwork/binaries
+下载到一个固定目录（这个目录以后不要删除，否则需要重新配置sw），右键以管理员打开cmd，进入这个目录，执行sw setup，看运气等着sw提示下载结束（国内网络不一定能下载，多试几十次，或者用梯子）。
 
 vcpkg.exe 下载链接：
 https://github.com/microsoft/vcpkg/archive/refs/heads/master.zip
