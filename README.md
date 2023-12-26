@@ -67,7 +67,7 @@ CMake生成的leptonica.sln（默认是Release x64）只能编译静态库lib。
 
 打开leptonica项目的属性，做如下配置：
 
-1、配置属性--常规--输出目录改为 $$(SolutionDir)$$(Configuration)\$$(Platform)\
+1、配置属性--常规--输出目录改为 \$(SolutionDir)\$(Configuration)\\\$(Platform)\
 
    配置属性--常规目标文件扩展名，改为.dll
 
